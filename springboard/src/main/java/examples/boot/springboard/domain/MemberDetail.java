@@ -6,14 +6,20 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name="role")
+@Table(name = "member_detail")
 @Setter
 @Getter
-public class Role {
+public class MemberDetail {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String addr;
+
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
 }
