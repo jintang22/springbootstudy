@@ -28,6 +28,10 @@ public class PurchaseGoods {
     @JoinColumn(name = "goods_id")
     private Goods goods;
 
+    @OneToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
     private LocalDateTime regdate;
 
 }
