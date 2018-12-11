@@ -16,11 +16,12 @@ public class LoginUserArgumentResolver
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
 
-        //@AuthUser 어노테이션이 있으면서
-        //클래스 타입이 AuthUser면 true를 리턴
 
+
+        //@AuthUser 어노테이션이 있으면서
         AuthUser authUser = methodParameter.getParameterAnnotation(AuthUser.class);
 
+        //클래스 타입이 AuthUser면 true를 리턴
         if( authUser != null
             && methodParameter.getParameterType() == LoginUser.class ) {
             return true;
