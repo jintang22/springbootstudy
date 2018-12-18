@@ -78,7 +78,9 @@
     </table>
 
     <c:forEach items="${itemPage.getContent()}" var="item">
-        ${item.name} , ${item.price} <input type="button" onclick="addCart(${item.id})" value="장바구니 담기"/>
+        ${item.name} , ${item.price}
+        <a href="javascript:addCart(${item.id})">장바구니 담기</a>
+        <a href="/order?itemId=${item.id}">즉시구매</a>
         <br />
     </c:forEach>
 
