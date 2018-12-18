@@ -9,7 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
@@ -26,15 +28,19 @@ public class CartController {
         Object obj = authentication.getPrincipal();
 
         if( obj instanceof CustomUserDetails) {
+            map.addAttribute("loginStatus", "Login");
 
             CustomUserDetails loginUser = (CustomUserDetails)authentication.getPrincipal();
 
             map.addAttribute("cartList", cartService.listCart(loginUser.getId()));
         }
         else {
+            map.addAttribute("loginStatus", "Logout");
             map.addAttribute("cartList", null);
         }
 
         return "/cart/cart";
     }
+
+
 }

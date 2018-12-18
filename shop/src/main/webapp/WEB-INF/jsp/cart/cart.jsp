@@ -9,15 +9,9 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <title>tang shop</title>
     <script>
-        function addCart(itemId) {
+        function removeCart(cartId) {
 
-            //alert(document.querySelector("meta[name='_csrf']").content);
 
-            if ( document.getElementById('loginStatus') !== 'Login' )
-            {
-                alert('로그인이 필요합니다.');
-                return ;
-            }
 
             var http = null
             if (window.ActiveXObject) {
@@ -33,16 +27,18 @@
             {
                 alert('http request 객체 생성 실패');
             }
-            http.open('POST', '/api/cart/add', false);
+            http.open('POST', '/api/cart/remove', false);
             http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
             var params = "";
 
-            params += 'itemId' + '=' + itemId;
+            params += 'cartId' + '=' + cartId;
             params += '&' + document.getElementById('paramName').value + '=' + document.getElementById('paramValue').value;
 
             http.send(params);
             alert(http.responseText);
+
+            window.location.href=window.location.href;
             /*
                         http.onreadystatechange = function() {
                             if(http.readyState == 4) {
@@ -68,7 +64,7 @@
         </c:if>
         <c:if test = "${loginStatus == 'Login'}">
             <td>
-                <a href="/cart">Cart</a>
+                <a href="/">Home</a>
             </td>
             <td>
                 <a href="/members/logout">Logout</a>
@@ -77,10 +73,24 @@
     </tr>
 </table>
 
+<table>
+    <tr>
+        <td>장바구니 번호</td>
+        <td>상품명</td>
+        <td>가격</td>
+        <td>수량</td>
+        <td></td>
+    </tr>
 <c:forEach items="${cartList}" var="cart">
-    ${cart.id}
-    <br />
+    <tr>
+        <td>${cart.id}</td>
+        <td>${cart.product.name}</td>
+        <td>${cart.price}</td>
+        <td>${cart.quantity}</td>
+        <td><input type="button" onclick="removeCart(${cart.id})" value="X"/></td>
+    </tr>
 </c:forEach>
+</table>
 
 
 <input type="hidden" id="paramName" value="${_csrf.parameterName}"/>

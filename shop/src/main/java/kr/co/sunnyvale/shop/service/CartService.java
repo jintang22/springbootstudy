@@ -35,6 +35,11 @@ public class CartService {
         return cartItemRepository.save( cartItem );
     }
 
+    public void removeCart(Long cartId) {
+
+        cartItemRepository.deleteById(cartId);
+    }
+
     public List<CartItem> listCart(Long memberId) {
 
         return cartItemRepository.findAllByMemberId(memberId);

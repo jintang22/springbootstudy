@@ -19,7 +19,7 @@ public class CartApiController {
     private CartService cartService;
 
     @PostMapping("/add")
-    public String joinComplete(
+    public String addCart(
             @RequestParam(name = "itemId") Long itemid
     ) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -35,5 +35,13 @@ public class CartApiController {
         }
 
         return "로그인이 필요합니다.";
+    }
+
+    @PostMapping("/remove")
+    public String removeCart(@RequestParam(name = "cartId") Long cartId){
+
+        cartService.removeCart(cartId);
+
+        return "장바구니 삭제가 완료되었습니다.";
     }
 }
